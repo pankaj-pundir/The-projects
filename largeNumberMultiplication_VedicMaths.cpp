@@ -14,6 +14,9 @@ int sum(int a[],int b[],int c[],int ai,int bi)
 		c[ci++]=carry;
 	return ci;
 }
+
+// Main multiplication function using "vedic maths"
+
 int mul(int a[],int b[],int c[],int ai,int bi)     
 {
 	int i,ci=0,x[42],xi=0,t,s,j;
@@ -50,32 +53,47 @@ int mul(int a[],int b[],int c[],int ai,int bi)
 	}
 	return ci;
 }
+
+
+
+
 int main()
 {
+
+  //Maximum size to 20 digits input (adjustable)
+
 	int a[20],b[20],c[41],i,ai,bi,ci,s;
 	char n;
 	for(i=0;i<20;i++)
 		a[i]=b[i]=c[i]=0;
 	for(i=20;i<41;i++)
 		c[i]=0;
+
+  cout<<"Large Number multiplication using \"VEDIC MATHS\" \ninput 1st number \n";
 	for(ai=0;ai<20;ai++)
 	{
 		n=getchar();
 		if(n==32||n==10||n==-1)
 			break;
-		cout<<n;
+		// cout<<n;
 		a[ai]=n-48;
 	}		//ai is the number of elements present in a[]
 	cout<<endl;
+  cout<<"input 2nd number \n ";
 	for(bi=0;bi<20;bi++)
 	{
 		n=getchar();
 		if(n==32||n==10||n==-1)
 			break;
-		cout<<n;
+	//	cout<<n;
 		b[bi]=n-48;
 	}
+
+  // multiplication is performed using arrays and vedic maths
+
 	ci=mul(a,b,c,ai,bi);
+
+
 	cout<<endl;
 	for(i=ci-1;i>=0;i--)
 		cout<<c[i];
