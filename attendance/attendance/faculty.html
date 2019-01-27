@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	 <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	</head>
+<body>
+
+	<?php
+		session_start();
+		$username=$_POST["name"];
+		$sql="SELECT * from `attendence`.`faculty_info` where `name`='$username'; ";
+		$result= mysql_query($sql);
+		$p=array("shivam","aditya");
+		while($field=mysql_fetch_assoc($result)){
+			$contact=$field[`contact`];
+			$dept=$field[`dept`];
+			if($field[`cg`]===1){
+				array_push($p,"cg");
+			}
+			if($field[`rts`]===1){
+				array_push($p,"rts");
+			}
+			if($field[`cn`]===1){
+				array_push($p,"cn");
+			}
+			if($field[`cvip`]===1){
+				array_push($p,"cvip");
+			}
+		}
+		
+	?>
+
+	<div class="container" style="margin-top: 10px;">
+		<div class="jumbotron" style="padding: 10px; background-color: #7ea5e5">
+			<h1 style="text-align: center; font-size: 3em;">Dashboard</h1>
+		</div>
+		<div class="jumbotron" style="background-color: #acc1e5; padding: 10px;">
+			 <p style="padding-left: 10%;">Name : <?php echo $username; ?><br/>
+			 Contact : <?php echo $contact ?><br/>
+			 Department : <?php echo $dept ?> <br>
+			 Subjects:
+			 <ul>
+			 <?php
+			 	$round=count($p);
+			 	for($x=0;$x<$round;$x++){
+			 		echo "<li>$p[$x]</li>";
+			 	}
+			 ?>
+			 </ul>
+			 
+			 </p>
+		</div>
+		<div class="jumbotron" style="background-color: #b9c9e5; padding: 10px;">
+			<h2 style="padding-left: 10%;">Attendence</h2>
+			<div class="dropdown" style="padding-left: 10%;">
+				<button class="btn btn-primary dropdown toggle" type="button" data-toggle="dropdown">Select the Subject <span class="caret"></span></button><br>
+				<ul class="dropdown-menu">
+					<?php
+			 		$round=count($p);
+			 		for($x=0;$x<$round;$x++){
+			 			echo "<li>$p[$x]</li>";
+			 		}
+			 		?>
+				</ul>
+			</div>
+			<form method="post">
+				<div class="form-group">
+					<label class="control-label" for="date" style="padding-left: 10%;">Date</label>
+					<input class="frm-control" id="date" type="text" name="date" placeholder="MM/DD/YYY">
+					<button class="btn btn-primary" name="submit" type="submit">Submit</button>
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
+
+</body>
+</html>
